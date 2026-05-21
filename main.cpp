@@ -20,6 +20,13 @@ using namespace std;
 
 bool parseLine(string &line, string &movieName, double &movieRating);
 
+void printRating(double r) {
+    if (r == (int)r)
+        cout << (int)r;
+    else
+        cout << fixed << setprecision(1) << r;
+}
+
 int main(int argc, char** argv){
     if (argc < 2){
         cerr << "Not enough arguments provided (need at least 1 argument)." << endl;
@@ -79,7 +86,9 @@ int main(int argc, char** argv){
             cout << "No movies found with prefix " << prefix << "\n";
         } else {
             for (const Movie* m : matches){
-                cout << m->name << ", " << fixed << setprecision(1) << m->rating << "\n";
+                cout << m->name << ", ";
+                printRating(m->rating);
+                cout << "\n";
             }
             if (i + 1 < prefixes.size()){
                 cout << "\n";
@@ -94,7 +103,10 @@ int main(int argc, char** argv){
     for (const string& prefix : prefixes){
         const Movie* best = db.getBestMovie(prefix);
         if (best){
-            cout << "Best movie with prefix " << prefix << " is: " << best->name << " with rating " << fixed << setprecision(1) << best->rating << "\n";
+            cout << "Best movie with prefix " << prefix << " is: " << best->name << " with rating ";
+            printRating(best->rating);
+            cout << "\n";
+
         }
     }
     return 0;
