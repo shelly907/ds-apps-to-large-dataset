@@ -1,7 +1,7 @@
 #include "movies.h"
 #include <algorithm>
 
-void MovieDataBase::addMovie(const std::string& name, double rating){
+void MovieDatabase::addMovie(const std::string& name, double rating) {
     movies.insert({name, rating});
 }
 
