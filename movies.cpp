@@ -5,7 +5,7 @@ void MovieDatabase::addMovie(const std::string& name, double rating) {
     movies.insert({name, rating});
 }
 
-void MovieDataBase::buildPrefixMap(){
+void MovieDatabase::buildPrefixMap(){
     for (const auto& movie : movies){
         for (int len = 1; len <= movie.name.size(); len++){ //inserting movie under every prefix of its name
             prefixMap[movie.name.substr(0, len)].push_back(&movie);
@@ -19,7 +19,7 @@ void MovieDataBase::buildPrefixMap(){
     }
 }
 
-void MovieDataBase::printAll() const {
+void MovieDatabase::printAll() const {
     for (const auto& movie : movies){
         std::cout << movie.name << ", " << std::fixed << std::setprecision(1) << movie.rating << "\n";
     }
