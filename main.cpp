@@ -1,6 +1,6 @@
-// Winter'24
+// Spring '26
 // Instructor: Diba Mirza
-// Student name: 
+// Student name: Shelly Parekh, Paul Clayton
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -36,21 +36,21 @@ int main(int argc, char** argv){
   
     // Create an object of a STL data-structure to store all the movies
 
+    MovieDatabase db;
+
     string line, movieName;
     double movieRating;
     // Read each file and store the name and rating
     while (getline (movieFile, line) && parseLine(line, movieName, movieRating)){
-            // Use std::string movieName and double movieRating
-            // to construct your Movie objects
-            // cout << movieName << " has rating " << movieRating << endl;
-            // insert elements into your data structure
+        db.addMovie(movieName, movieRating);
     }
 
     movieFile.close();
+    db.buildPrefixMap();
 
     if (argc == 2){
-            //print all the movies in ascending alphabetical order of movie names
-            return 0;
+        db.printAll();
+        return 0;
     }
 
     ifstream prefixFile (argv[2]);
@@ -66,16 +66,37 @@ int main(int argc, char** argv){
             prefixes.push_back(line);
         }
     }
+    prefixFile.close();
 
     //  For each prefix,
     //  Find all movies that have that prefix and store them in an appropriate data structure
     //  If no movie with that prefix exists print the following message
-    cout << "No movies found with prefix "<<"<replace with prefix>" << endl;
+    for (int i = 0; i < prefixes.size(); i++){
+        const string& prefix = prefixes[i];
+        vector<const Movie*> matches = db.getMoviesByPrefix(prefix);
+
+        if (matches.empty()){
+            cout << "No movies found with prefix " << prefix << "\n";
+        } else {
+            for (const Movie* m : matches){
+                cout << m->name << ", " << fixed << setprecision(1) << m->rating << "\n";
+            }
+            if (i + 1 < prefixes.size()){
+                cout << "\n";
+            }
+        }
+    }
+
 
     //  For each prefix,
     //  Print the highest rated movie with that prefix if it exists.
-    cout << "Best movie with prefix " << "<replace with prefix>" << " is: " << "replace with movie name" << " with rating " << std::fixed << std::setprecision(1) << "replace with movie rating" << endl;
-
+    cout << "\n";
+    for (const string& prefix : prefixes){
+        const Movie* best = db.getBestMovie(prefix);
+        if (best){
+            cout << "Best movie with prefix " << prefix << " is: " << best->name << " with rating " << fixed << setprecision(1) << best->rating << "\n";
+        }
+    }
     return 0;
 }
 
