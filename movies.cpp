@@ -19,9 +19,18 @@ void MovieDatabase::buildPrefixMap(){
     }
 }
 
+static void printRating(double r) {
+    if (r == (int)r)
+        std::cout << (int)r;
+    else
+        std::cout << std::fixed << std::setprecision(1) << r;
+}
+
 void MovieDatabase::printAll() const {
     for (const auto& movie : movies){
-        std::cout << movie.name << ", " << std::fixed << std::setprecision(1) << movie.rating << "\n";
+        std::cout << movie.name << ", ";
+        printRating(movie.rating);
+        std::cout << "\n";
     }
 }
 
