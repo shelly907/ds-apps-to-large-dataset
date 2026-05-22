@@ -26,7 +26,7 @@ class MovieDatabase {
         const Movie* getBestMovie(const std::string& prefix) const;
     private:
         std::set<Movie> movies;
-        std::unordered_map<std::string, std::vector<const Movie*>> prefixMap;
+        //std::unordered_map<std::string, std::vector<const Movie*>> prefixMap;
 };
 
 #endif
