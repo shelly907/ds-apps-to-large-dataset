@@ -53,7 +53,7 @@ int main(int argc, char** argv){
     }
 
     movieFile.close();
-    //db.buildPrefixMap();
+    db.buildPrefixMap();
 
     if (argc == 2){
         db.printAll();
