@@ -90,9 +90,10 @@ int main(int argc, char** argv){
                 printRating(m->rating);
                 cout << "\n";
             }
-        }
-        if (i + 1 < prefixes.size()){
-            cout << "\n";
+        
+            if (i + 1 < prefixes.size()){
+                cout << "\n";
+            }
         }
     }
 
