@@ -106,7 +106,8 @@ int main(int argc, char** argv){
             cout << "Best movie with prefix " << prefix << " is: " << best->name << " with rating ";
             printRating(best->rating);
             cout << "\n";
-
+        } else {
+            cout << "No movies found with prefix " << prefix << "\n";
         }
     }
     return 0;
